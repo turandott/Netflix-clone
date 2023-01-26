@@ -5,6 +5,7 @@ import Header from '../components/Header'
 import Banner from '../components/Banner'
 import requests from '../utils/requests'
 import { Movie } from '../typings'
+import Row from '../components/Row'
 
 interface Props {
   trendingNow: Movie[]
@@ -22,10 +23,12 @@ const Home = ({ trendingNow }: Props) => {
       <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
         <Banner trendingNow={trendingNow}/>
 
-        <section>
-
-
-
+        <section className="md:space-y-24">
+          <Row title="trending now" movies={trendingNow}/>
+          <Row title="trending now" movies={trendingNow}/>
+          <Row title="trending now" movies={trendingNow}/>
+          <Row title="trending now" movies={trendingNow}/>
+          <Row title="trending now" movies={trendingNow}/>
 
         </section>
       </main>
