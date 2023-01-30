@@ -7,15 +7,22 @@ import requests from '../utils/requests'
 import { Movie } from '../typings'
 import Row from '../components/Row'
 import useAuth from '../hooks/useAuth'
+import { useRecoilValue } from 'recoil'
+import { useState } from 'react'
+import { modalState } from '../atoms/modalAtom'
+import Modal from '../components/Modal'
 
 interface Props {
   trendingNow: Movie[]
 }
 
 const Home = ({ trendingNow }: Props) => {
-  const {logout,loading}=useAuth()
+  const {loading} = useAuth()
+  const showModal = useRecoilValue(modalState)
+  // const [showModal, setShowModal] = useState(false)
+
   if(loading) return null
-  
+
 
 
   console.log(trendingNow)
@@ -35,9 +42,9 @@ const Home = ({ trendingNow }: Props) => {
           <Row title="trending now" movies={trendingNow}/>
           <Row title="trending now" movies={trendingNow}/>
           <Row title="trending now" movies={trendingNow}/>
-
         </section>
       </main>
+     {showModal&&<Modal/>}
     </div>
   )
 }

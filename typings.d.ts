@@ -20,6 +20,7 @@ export interface Movie {
 //   poster_path: string
 //   vote_average: number
 //   vote_count: number
+  id: string
   rank: number
   title: string
   fullTitle: string
@@ -28,6 +29,7 @@ export interface Movie {
   crew: string[]
   imDbRating: number
   imDbRatingCount: number
+  videoUrl:string
 }
 
 export interface Element {
