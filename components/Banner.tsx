@@ -7,11 +7,11 @@ import { useRecoilState } from 'recoil'
 import { modalState, movieState } from '../atoms/modalAtom'
 
 interface Props{
-    trendingNow?: Movie[]
+    mostPopular?: Movie[]
 }
 
 
-function Banner({trendingNow}: Props) {
+function Banner({mostPopular}: Props) {
     const [movie,setMovie]=useState<Movie|null>(null)
     const [showModal, setShowModal]=useRecoilState(modalState)
     const [currentMovie, setCurrentMovie]=useRecoilState(movieState)
@@ -19,9 +19,9 @@ function Banner({trendingNow}: Props) {
     useEffect(()=>{
         // console.log(` obj ${trendingNow.items[0]}`)
 
-        setMovie(trendingNow[Math.floor(Math.random()*trendingNow.length)]
+        setMovie(mostPopular[Math.floor(Math.random()*mostPopular.length)]
         )
-    },[trendingNow])
+    },[mostPopular])
 
     // console.log(movie)
   return (

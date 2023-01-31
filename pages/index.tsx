@@ -13,10 +13,14 @@ import { modalState } from '../atoms/modalAtom'
 import Modal from '../components/Modal'
 
 interface Props {
-  trendingNow: Movie[]
+  trendingNow: Movie[],
+  mostPopular: Movie[],
+  comingSoon: Movie[],
+  mostPopularTVs: Movie[]
+
 }
 
-const Home = ({ trendingNow }: Props) => {
+const Home = ({ trendingNow, mostPopularTVs, comingSoon, mostPopular }: Props) => {
   const {loading} = useAuth()
   const showModal = useRecoilValue(modalState)
   // const [showModal, setShowModal] = useState(false)
@@ -34,14 +38,13 @@ const Home = ({ trendingNow }: Props) => {
       </Head>
       <Header/>
       <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16">
-        <Banner trendingNow={trendingNow}/>
+        <Banner mostPopular={mostPopular}/>
 
         <section className="md:space-y-24">
+        <Row title="most popular" movies={mostPopular}/>
           <Row title="trending now" movies={trendingNow}/>
-          <Row title="trending now" movies={trendingNow}/>
-          <Row title="trending now" movies={trendingNow}/>
-          <Row title="trending now" movies={trendingNow}/>
-          <Row title="trending now" movies={trendingNow}/>
+          <Row title="coming soon" movies={comingSoon}/>
+          <Row title="popular TVs" movies={mostPopularTVs}/>
         </section>
       </main>
      {showModal&&<Modal/>}
@@ -53,21 +56,24 @@ export default Home
 
 
 export const getServerSideProps=async ()=>{
-  // const [trendingNow]=await Promise.all([ 
-  // fetch(requests.fetchTrending).then((res)=>res.json()),
+  const [
+    trendingNow,
+    mostPopular,
+    comingSoon,
+    mostPopularTVs,
+  ]=await Promise.all([ 
+  fetch(requests.fetchTrending).then((res)=>res.json()),
+  fetch(requests.mostPopular).then((res)=>res.json()),
+  fetch(requests.comingSoon).then((res)=>res.json()),
+  fetch(requests.mostPopularTVs).then((res)=>res.json()),
 
-  // ])
-  // return{
-  //   props: {
-  //     trendingNow: trendingNow.results ?? null,
-  //   }
-  // }
-
-  const trendingNow =await fetch(requests.fetchTrending)
-  const data= await trendingNow.json()
+  ])
   return{
-    props:{
-      trendingNow: data.items
+    props: {
+      trendingNow: trendingNow.items ?? null,
+      mostPopular: mostPopular.items ?? null,
+      comingSoon: comingSoon.items ?? null,
+      mostPopularTVs: mostPopularTVs.items ?? null,
     }
   }
 
